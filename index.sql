@@ -133,9 +133,7 @@ SELECT column1, column2, ... FROM table_name;
 -- Count all the distinct songs based from its genre
     -- Write your query here
 
-    SELECT genre, COUNT(*) AS total_songs 
-    FROM songs 
-    GROUP BY genre;
+    SELECT COUNT(DISTINCT genre) FROM songs
 
 -- Change duration data type into TIME
     -- Write your query here
@@ -159,7 +157,7 @@ SELECT column1, column2, ... FROM table_name;
 
     -- 3. Select songs with duration longer than 4 minutes
 
-    SELECT * FROM songs 
+    SELECT * FROM songs
     WHERE duration > '00:04:00';
 
 
@@ -173,5 +171,49 @@ SELECT column1, column2, ... FROM table_name;
 -- Select all the data from the songs table and sort it in descending order based on the release year
     -- Write your query here
 
-    SELECT * FROM songs 
+    SELECT * FROM songs
     ORDER BY release_year DESC;
+
+    -- Columns: product_name, brand, category, shade, price, stock, description, date_added, isAvailable
+
+('Superstay Matte Ink Liquid Lipstick', 'Maybelline', 'Lipstick', 'Pioneer', 349, 80)
+('True Match Liquid Foundation', "L'Oreal Paris", 'Foundation', 'Golden Beige', 599, 40)
+('Ultra Brow Pencil', 'Revlon', 'Brows', 'Dark Brown', 299, 60)
+('Butter Blush', 'Physicians Formula', 'Blush', 'Natural Glow', 549, 45)
+('Airy Matte Lipstick', 'BLK Cosmetics', 'Lipstick', 'Mocha Latte', 379, 150)
+('Second Skin Serum Cushion Foundation', 'Happy Skin', 'Foundation', 'Soft Beige', 999, 95)
+('Fluffmate Lipstick', 'Sunnies Face', 'Lipstick', 'Girl Crush', 495, 200)
+('Aura Contour Powder', 'Vice Cosmetics', 'Contour', 'Confezzz', 245, 180)
+('Glass Tint', 'Detail Cosmetics', 'Lip Tint', 'Berry Juice', 299, 130)
+('Universal Brow Stick', 'BLK Cosmetics', 'Brows', 'Natural Brown', 329, 110)
+('Holy Grail Mascara', 'Happy Skin', 'Mascara', 'Black', 699, 85)
+('Face Glass Highlighter', 'Sunnies Face', 'Highlighter', 'Sunset Glow', 496, 160)
+('Aura Blush', 'Vice Cosmetics', 'Blush', 'Title of Our Love', 245, 190)
+('Velvet Flush Cream Tint', 'Detail Cosmetics', 'Others', 'Peach Pop', 249, 140)
+
+-- Make any query and use AND, OR, NOT operator
+    -- Write your query here
+
+-- Perform an Update Query on certain product/s changing its availability
+    -- Write your query here
+
+-- Perform a Delete Query on certain product/s which are not available
+    -- Write your query here
+
+-- Select all the remaining products but limit the returned data to 5 and arrange its order in descending stocks
+    -- Write your query here
+
+-- Select the product with the least stock
+    -- Write your query here
+
+-- Select the product with the most stock
+    -- Write your query here
+
+-- Select the total number of product stocks of a certain brand
+    -- Write your query here
+
+-- Perform any Update Query
+    -- Write your query here
+
+-- Perform two queries using aggregate functions
+    -- Write your query here
