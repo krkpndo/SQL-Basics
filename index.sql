@@ -176,44 +176,78 @@ SELECT column1, column2, ... FROM table_name;
 
     -- Columns: product_name, brand, category, shade, price, stock, description, date_added, isAvailable
 
-('Superstay Matte Ink Liquid Lipstick', 'Maybelline', 'Lipstick', 'Pioneer', 349, 80)
-('True Match Liquid Foundation', "L'Oreal Paris", 'Foundation', 'Golden Beige', 599, 40)
-('Ultra Brow Pencil', 'Revlon', 'Brows', 'Dark Brown', 299, 60)
-('Butter Blush', 'Physicians Formula', 'Blush', 'Natural Glow', 549, 45)
-('Airy Matte Lipstick', 'BLK Cosmetics', 'Lipstick', 'Mocha Latte', 379, 150)
-('Second Skin Serum Cushion Foundation', 'Happy Skin', 'Foundation', 'Soft Beige', 999, 95)
-('Fluffmate Lipstick', 'Sunnies Face', 'Lipstick', 'Girl Crush', 495, 200)
-('Aura Contour Powder', 'Vice Cosmetics', 'Contour', 'Confezzz', 245, 180)
-('Glass Tint', 'Detail Cosmetics', 'Lip Tint', 'Berry Juice', 299, 130)
-('Universal Brow Stick', 'BLK Cosmetics', 'Brows', 'Natural Brown', 329, 110)
-('Holy Grail Mascara', 'Happy Skin', 'Mascara', 'Black', 699, 85)
-('Face Glass Highlighter', 'Sunnies Face', 'Highlighter', 'Sunset Glow', 496, 160)
-('Aura Blush', 'Vice Cosmetics', 'Blush', 'Title of Our Love', 245, 190)
-('Velvet Flush Cream Tint', 'Detail Cosmetics', 'Others', 'Peach Pop', 249, 140)
+    ('Superstay Matte Ink Liquid Lipstick', 'Maybelline', 'Lipstick', 'Pioneer', 349, 80)
+    ('True Match Liquid Foundation', "L'Oreal Paris", 'Foundation', 'Golden Beige', 599, 40)
+    ('Ultra Brow Pencil', 'Revlon', 'Brows', 'Dark Brown', 299, 60)
+    ('Butter Blush', 'Physicians Formula', 'Blush', 'Natural Glow', 549, 45)
+    ('Airy Matte Lipstick', 'BLK Cosmetics', 'Lipstick', 'Mocha Latte', 379, 150)
+    ('Second Skin Serum Cushion Foundation', 'Happy Skin', 'Foundation', 'Soft Beige', 999, 95)
+    ('Fluffmate Lipstick', 'Sunnies Face', 'Lipstick', 'Girl Crush', 495, 200)
+    ('Aura Contour Powder', 'Vice Cosmetics', 'Contour', 'Confezzz', 245, 180)
+    ('Glass Tint', 'Detail Cosmetics', 'Lip Tint', 'Berry Juice', 299, 130)
+    ('Universal Brow Stick', 'BLK Cosmetics', 'Brows', 'Natural Brown', 329, 110)
+    ('Holy Grail Mascara', 'Happy Skin', 'Mascara', 'Black', 699, 85)
+    ('Face Glass Highlighter', 'Sunnies Face', 'Highlighter', 'Sunset Glow', 496, 160)
+    ('Aura Blush', 'Vice Cosmetics', 'Blush', 'Title of Our Love', 245, 190)
+    ('Velvet Flush Cream Tint', 'Detail Cosmetics', 'Others', 'Peach Pop', 249, 140)
 
 -- Make any query and use AND, OR, NOT operator
     -- Write your query here
 
+    SELECT * FROM products
+    WHERE category = 'Lipstick' AND price < 400 OR NOT brand = 'Maybelline';
+
 -- Perform an Update Query on certain product/s changing its availability
     -- Write your query here
+
+    UPDATE products
+    SET isAvailable = FALSE
+    WHERE stock < 50;
 
 -- Perform a Delete Query on certain product/s which are not available
     -- Write your query here
 
+    DELETE FROM products
+    WHERE brand = Revlon;
+
 -- Select all the remaining products but limit the returned data to 5 and arrange its order in descending stocks
     -- Write your query here
+
+    SELECT * FROM products
+    ORDER BY stock DESC
+    LIMIT 5;
 
 -- Select the product with the least stock
     -- Write your query here
 
+    SELECT product_name, brand, stock
+    FROM products
+    WHERE stock = (SELECT MIN(stock) FROM products);
+
 -- Select the product with the most stock
     -- Write your query here
+
+    SELECT product_name, brand, stock
+    FROM products
+    WHERE stock = (SELECT MAX(stock) FROM products);
 
 -- Select the total number of product stocks of a certain brand
     -- Write your query here
 
+    SELECT brand, SUM(stock) AS total_stock
+    FROM products
+    WHERE brand = 'BLK Cosmetics';
+
 -- Perform any Update Query
     -- Write your query here
 
+    UPDATE products
+    SET price = 499
+    WHERE brand = 'Detail Cosmetics';
+
 -- Perform two queries using aggregate functions
     -- Write your query here
+
+    SELECT COUNT(*) AS total_products FROM products;
+    SELECT MAX(price) AS highest_price, MIN(price) AS lowest_price FROM products;
+
