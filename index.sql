@@ -561,3 +561,12 @@ VALUES
     (003, '2025-08-10', '2026-08-10', 'Cash', 2500, TRUE, 'Basic Coverage'),
     (004, '2025-07-01', '2026-07-01', 'Online Payment', 5200, FALSE, 'Expired Policy'),
     (005, '2025-06-05', '2026-06-05', 'Bank Transfer', 4000, TRUE, 'Renewal');
+
+
+
+
+-- SQL JOIN
+    -- A JOIN clause is used to combine rows from two or more tables, based on a related column between them.
+
+    -- INNER JOIN
+        -- The INNER JOIN keyword returns only rows with a match in both tables.
