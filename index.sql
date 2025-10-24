@@ -251,3 +251,89 @@ SELECT column1, column2, ... FROM table_name;
     SELECT COUNT(*) AS total_products FROM products;
     SELECT MAX(price) AS highest_price, MIN(price) AS lowest_price FROM products;
 
+
+-- USE ecommerce_db database
+
+-- Create new 'employees' table with columns employee_id, first_name, last_name, department, salary, hire_data, city
+
+-- Insert the following data in the table:
+
+| employee_id | first_name | last_name | department | salary | hire_date  | city        |
+| ----------- | ---------- | --------- | ---------- | ------ | ---------- | ----------- |
+| 1           | John       | Smith     | Sales      | 45000  | 2018-06-12 | New York    |
+| 2           | Sarah      | Johnson   | IT         | 65000  | 2019-09-20 | Los Angeles |
+| 3           | Robert     | Brown     | HR         | 52000  | 2016-04-02 | Chicago     |
+| 4           | Emily      | Davis     | IT         | 72000  | 2021-01-10 | New York    |
+| 5           | Michael    | Wilson    | Sales      | 48000  | 2017-12-01 | Boston      |
+| 6           | Jessica    | Miller    | HR         | 53000  | 2015-11-15 | Miami       |
+| 7           | David      | Martinez  | Sales      | 39000  | 2020-08-19 | Chicago     |
+| 8           | Laura      | Garcia    | Marketing  | 60000  | 2019-03-25 | Los Angeles |
+
+
+
+-- 1. Using Aggregate Functions
+
+-- Find the total number of employees.
+
+-- Find the average salary of all employees.
+
+-- Find the highest and lowest salary in the company.
+
+-- Find the total salary cost per department.
+
+-- Find the average salary of employees hired after 2018.
+
+
+
+-- 2. Using LIKE and Wildcards
+
+-- Find all employees whose first name starts with J.
+
+-- Find all employees whose last name ends with son.
+
+-- Find all employees whose last name contains ar.
+
+-- Find all employees whose first name has exactly 5 letters.
+-- (Hint: use _ wildcard for single characters)
+
+
+
+-- 3. Using IN
+
+-- Find all employees who work in the departments Sales or HR.
+
+-- Find all employees located in either New York, Chicago, or Miami.
+
+-- Find all employees whose salary is one of these: 45000, 53000, 72000.
+
+
+
+-- 4. Using BETWEEN
+
+-- Find all employees with a salary between 50,000 and 70,000.
+
+-- Find employees hired between '2018-01-01' and '2020-12-31'.
+
+
+
+-- 5. Using Aliases
+
+-- Display employee full name as a single column called employee_name.
+
+-- Display department names and their average salary with alias average_salary.
+
+-- Display first_name, last_name, and salary labeled as Employee, Family Name, and Monthly Pay.
+
+
+
+-- 6. Bonus (Mixing Concepts)
+
+-- Find all employees in IT or Marketing whose salary is between 60,000 and 75,000.
+
+-- Find all employees whose city contains “o” and who were hired after 2018.
+
+-- Show each department’s number of employees and average salary, but only for departments whose average salary exceeds 55,000.
+
+
+
+--- ERD HERE ----
