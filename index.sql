@@ -252,6 +252,23 @@ SELECT column1, column2, ... FROM table_name;
     SELECT MAX(price) AS highest_price, MIN(price) AS lowest_price FROM products;
 
 
+-- Creating table with primary key and foreign key/s
+    -- Example
+        CREATE TABLE playlists_songs (
+	id INT NOT NULL AUTO_INCREMENT,
+	playlist_id INT NOT NULL,
+	song_id INT NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT fk_playlists_songs_playlist_id
+		FOREIGN KEY (playlist_id) REFERENCES playlists(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT fk_playlists_songs_song_id
+		FOREIGN KEY (song_id) REFERENCES songs(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- USE ecommerce_db database
 
