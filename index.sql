@@ -252,11 +252,37 @@ SELECT column1, column2, ... FROM table_name;
     SELECT MAX(price) AS highest_price, MIN(price) AS lowest_price FROM products;
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- USE ecommerce_db database
+
+USE ecommerce_db;
 
 -- Create new 'employees' table with columns employee_id, first_name, last_name, department, salary, hire_data, city
 
+CREATE TABLE employees (
+    employee_id INT AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    department VARCHAR(50) NOT NULL,
+    salary INT NOT NULL,
+    hire_date DATE NOT NULL,
+    city VARCHAR(50),
+    PRIMARY KEY (employee_id)
+);
+
 -- Insert the following data in the table:
+
+INSERT INTO employees (first_name, last_name, department, salary, hire_date, city)
+VALUES
+('John', 'Smith', 'Sales', 45000, '2018-06-12', 'New York'),
+('Sarah', 'Johnson', 'IT', 65000, '2019-09-20', 'Los Angeles'),
+('Robert', 'Brown', 'HR', 52000, '2016-04-02', 'Chicago'),
+('Emily', 'Davis', 'IT', 72000, '2021-01-10', 'New York'),
+('Michael', 'Wilson', 'Sales', 48000, '2017-12-01', 'Boston'),
+('Jessica', 'Miller', 'HR', 53000, '2015-11-15', 'Miami'),
+('David', 'Martinez', 'Sales', 39000, '2020-08-19', 'Chicago'),
+('Laura', 'Garcia', 'Marketing', 60000, '2019-03-25', 'Los Angeles');
+
 
 | employee_id | first_name | last_name | department | salary | hire_date  | city        |
 | ----------- | ---------- | --------- | ---------- | ------ | ---------- | ----------- |
@@ -269,71 +295,149 @@ SELECT column1, column2, ... FROM table_name;
 | 7           | David      | Martinez  | Sales      | 39000  | 2020-08-19 | Chicago     |
 | 8           | Laura      | Garcia    | Marketing  | 60000  | 2019-03-25 | Los Angeles |
 
-
-
 -- 1. Using Aggregate Functions
 
 -- Find the total number of employees.
 
+SELECT COUNT(*) AS total_employees
+FROM employees;
+
 -- Find the average salary of all employees.
 
+SELECT AVG(salary) AS average_salary
+FROM employees;
+
 -- Find the highest and lowest salary in the company.
+--Highest
+SELECT last_name, department, highest_salary
+FROM employees
+WHERE highest_salary = (SELECT MAX(salary) FROM employees);
+
+--Lowest
+SELECT last_name, department, lowest_salary
+FROM employees
+WHERE lowest_salary = (SELECT MIN(salary) FROM employees);
 
 -- Find the total salary cost per department.
 
+SELECT department, 
+    SUM(salary) AS total_salary_cost
+FROM employees
+GROUP BY department;
+
 -- Find the average salary of employees hired after 2018.
 
-
+SELECT AVG(salary)
+FROM employees
+WHERE hire_date > '2018-12-31';
 
 -- 2. Using LIKE and Wildcards
 
 -- Find all employees whose first name starts with J.
 
+SELECT *
+FROM employees
+WHERE first_name LIKE 'J%';
+
 -- Find all employees whose last name ends with son.
 
+SELECT *
+FROM employees
+WHERE last_name LIKE '%son';
+
 -- Find all employees whose last name contains ar.
+
+SELECT *
+FROM employees
+WHERE last_name LIKE '%ar%';
 
 -- Find all employees whose first name has exactly 5 letters.
 -- (Hint: use _ wildcard for single characters)
 
+SELECT *
+FROM employees
+WHERE first_name LIKE '_____';
 
 
 -- 3. Using IN
 
 -- Find all employees who work in the departments Sales or HR.
 
+SELECT *
+FROM employees
+WHERE department IN ('Sales', 'HR');
+
 -- Find all employees located in either New York, Chicago, or Miami.
+
+SELECT *
+FROM employees
+WHERE location IN ('New York', 'Chicago', 'Miami');
 
 -- Find all employees whose salary is one of these: 45000, 53000, 72000.
 
+SELECT *
+FROM employees
+WHERE salary IN (45000, 53000, 72000);
 
 
 -- 4. Using BETWEEN
 
 -- Find all employees with a salary between 50,000 and 70,000.
 
+SELECT *
+FROM employees
+WHERE salary BETWEEN 50000 AND 70000;
+
 -- Find employees hired between '2018-01-01' and '2020-12-31'.
 
+SELECT *
+FROM employees
+WHERE hire_date BETWEEN '2018-01-01' AND '2020-12-31';
 
 
 -- 5. Using Aliases
 
 -- Display employee full name as a single column called employee_name.
 
+-- idk po hehheeh
+
 -- Display department names and their average salary with alias average_salary.
+
+SELECT 
+    department AS department_name,
+    AVG(salary) AS average_salary
+FROM employees
+GROUP BY department;
 
 -- Display first_name, last_name, and salary labeled as Employee, Family Name, and Monthly Pay.
 
-
+SELECT first_name AS Employee, 
+       last_name AS Family_Name, 
+       salary AS Monthly_Pay
+FROM employees;
 
 -- 6. Bonus (Mixing Concepts)
 
 -- Find all employees in IT or Marketing whose salary is between 60,000 and 75,000.
 
+SELECT *
+FROM employees
+WHERE department IN ('IT', 'Marketing') AND salary BETWEEN 60000 AND 75000;
+
 -- Find all employees whose city contains “o” and who were hired after 2018.
+
+SELECT *
+FROM employees
+WHERE city LIKE '%o%' AND hire_date > '2018-12-31';
 
 -- Show each department’s number of employees and average salary, but only for departments whose average salary exceeds 55,000.
 
-
+SELECT 
+    department,
+    COUNT(*) AS number_of_employees,
+    AVG(salary) AS average_salary
+FROM employees
+GROUP BY department
+WHERE average_salary > 55000;
 
 --- ERD HERE ----
