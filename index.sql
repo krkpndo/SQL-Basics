@@ -326,14 +326,14 @@ FROM employees;
 
 -- Find the highest and lowest salary in the company.
 --Highest
-SELECT last_name, department, highest_salary
+SELECT last_name, department, salary AS highest_salary
 FROM employees
-WHERE highest_salary = (SELECT MAX(salary) FROM employees);
+WHERE salary = (SELECT MAX(salary) FROM employees);
 
 --Lowest
-SELECT last_name, department, lowest_salary
+SELECT last_name, department, salary AS lowest_salary
 FROM employees
-WHERE lowest_salary = (SELECT MIN(salary) FROM employees);
+WHERE salary = (SELECT MIN(salary) FROM employees);
 
 -- Find the total salary cost per department.
 
@@ -454,8 +454,9 @@ SELECT
     COUNT(*) AS number_of_employees,
     AVG(salary) AS average_salary
 FROM employees
+WHERE salary > 55000;
 GROUP BY department
-WHERE average_salary > 55000;
+
 
 --- ERD HERE ----
 
