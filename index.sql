@@ -458,3 +458,97 @@ GROUP BY department
 WHERE average_salary > 55000;
 
 --- ERD HERE ----
+
+CREATE DATABASE insurance_db;
+USE insurance_db;
+
+--okay na
+CREATE TABLE policy (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    policy_number INT NOT NULL,
+    policy_effective_date DATE NOT NULL,
+    policy_expire_date DATE NOT NULL,
+    payment_option VARCHAR(25),
+    total_amount INT NOT NULL,
+    active BOOLEAN DEFAULT TRUE,
+    additional_info VARCHAR(50),
+    created_date DATE DEFAULT (CURRENT_DATE)
+);
+
+--okay na
+CREATE TABLE coverage (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    policy_id INT NOT NULL,
+    coverage_name VARCHAR(25) NOT NULL,
+    coverage_group VARCHAR(25) NOT NULL,
+    code INT NOT NULL,
+    isPolicyCoverage BOOLEAN DEFAULT FALSE,
+    isVehicleCoverage BOOLEAN DEFAULT FALSE,
+    description VARCHAR(50),
+    CONSTRAINT fk_coverage_policy_id FOREIGN KEY (policy_id) REFERENCES policy(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+--okay na
+CREATE TABLE bill (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    policy_id INT NOT NULL,
+    due_date DATE NOT NULL,
+    amount INT NOT NULL,
+    status VARCHAR(30),
+    CONSTRAINT fk_bill_policy_id FOREIGN KEY (policy_id) REFERENCES policy(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+--oks na rin
+CREATE TABLE policy_coverage (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    coverage_id INT NOT NULL,
+    policy_id INT NOT NULL,
+    active BOOLEAN DEFAULT TRUE,
+    created_date DATE DEFAULT (CURRENT_DATE),
+    CONSTRAINT fk_policy_coverage_coverage_id FOREIGN KEY (coverage_id) REFERENCES coverage(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT fk_policy_coverage_policy_id FOREIGN KEY (policy_id) REFERENCES policy(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+--oks na
+CREATE TABLE policy_edit_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    policy_id INT NOT NULL,
+    edited_table_name VARCHAR(50),
+    edited_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    additional_info VARCHAR(100),
+    edited_by VARCHAR(50),
+    CONSTRAINT fk_policy_edit_policy_id FOREIGN KEY (policy_id) REFERENCES policy(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+--hindi oks, kasi wala ata vehicle na table :>> idk po hehe, should i add? ano po content
+CREATE TABLE vehicle_coverage (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_id INT NOT NULL,
+    coverage_id INT NOT NULL,
+    active BOOLEAN DEFAULT TRUE,
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_vehicle_coverage_vehicle_id FOREIGN KEY (vehicle_id) REFERENCES vehicle(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CONSTRAINT fk_vehicle_coverage_coverage_id FOREIGN KEY (coverage_id) REFERENCES coverage(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+INSERT INTO policy (policy_number,policy_effective_date, policy_expire_date, payment_option, total_amount, active, additional_info)
+VALUES
+    (001, '2025-10-24', '2026-10-24', 'Bank Transfer', 3000, TRUE, 'Premium')
+    (002, '2025-09-15', '2026-09-15', 'Credit Card', 4500, TRUE, 'Standard Plan'),
+    (003, '2025-08-10', '2026-08-10', 'Cash', 2500, TRUE, 'Basic Coverage'),
+    (004, '2025-07-01', '2026-07-01', 'Online Payment', 5200, FALSE, 'Expired Policy'),
+    (005, '2025-06-05', '2026-06-05', 'Bank Transfer', 4000, TRUE, 'Renewal');
