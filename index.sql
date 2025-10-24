@@ -530,6 +530,14 @@ CREATE TABLE policy_edit_log (
         ON DELETE RESTRICT
 );
 
+CREATE TABLE vehicle (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_name VARCHAR(50),
+    model VARCHAR(50),
+    plate_number VARCHAR(20),
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 --hindi oks, kasi wala ata vehicle na table :>> idk po hehe, should i add? ano po content
 CREATE TABLE vehicle_coverage (
     id INT AUTO_INCREMENT PRIMARY KEY,
