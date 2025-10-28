@@ -570,3 +570,113 @@ VALUES
 
     -- INNER JOIN
         -- The INNER JOIN keyword returns only rows with a match in both tables.
+
+
+-- Start Here
+
+-- 1. Create a database called Bookstore.
+
+
+-- 2. Create a table called Books with the following columns:
+
+    -- BookID (integer, primary key)
+
+    -- Title (varchar 100, cannot be null)
+
+    -- Author (varchar 100)
+
+    -- Price (decimal)
+
+    -- PublishedYear (integer)
+
+    -- Genre (varchar 50)
+
+
+-- 3. Create a table called Customers with the following columns:
+
+    -- CustomerID (integer, primary key)
+
+    -- Name (varchar 100, cannot be null)
+
+    -- Email (varchar 100)
+
+    -- Phone (varchar 20)
+
+    -- City (varchar 50)
+
+
+-- 4. Insert at least 5 rows into Books and 5 rows into Customers. Make sure to include:
+
+    -- At least one NULL value in Email or Phone for customers.
+
+    -- Books with different genres and years.
+
+
+-- 5. Basic Select Queries
+
+    -- Select all columns from the Books table.
+
+    -- Select only the Title and Price from Books.
+
+    -- Select all distinct genres from the Books table.
+
+
+-- 6. Using WHERE, AND, OR, NOT
+
+    -- Select all books where Price is greater than 500.
+
+    -- Select all customers who live in "Manila" and have an email.
+
+    -- Select books not published in 2020.
+
+    -- Select customers whose city is "Cebu" or "Davao".
+
+
+-- 7. ORDER BY and LIMIT
+
+    -- Select all books ordered by Price from highest to lowest.
+
+    -- Select the 3 cheapest books.
+
+    -- Select customers ordered alphabetically by Name.
+
+
+-- 8. Update and Delete
+
+    -- Update the price of a book with BookID = 2 to 600.
+
+    -- Delete a customer whose CustomerID = 5.
+
+
+-- 9. Aggregate Functions
+
+    -- Find the average price of all books.
+
+    -- Find the maximum and minimum price of books.
+
+    -- Count the total number of books.
+
+    -- Count the number of customers with a NULL email.
+
+
+-- 10. LIKE, Wildcards, IN, BETWEEN
+
+    -- Select all books whose title contains "Harry".
+
+    -- Select all authors whose name starts with "J".
+
+    -- Select books with Price between 200 and 500.
+
+    -- Select customers who live in either "Manila", "Cebu", or "Davao" using IN.
+
+
+-- 11. Aliases
+
+    -- Select the Title as BookTitle and Price as BookPrice.
+
+    -- Find the average book price and show it as AvgPrice.
+
+
+-- 12. Gawa ka lang tables for this ERD :)
+
+    -- https://landing.moqups.com/img/_optimized/templates/diagrams/erd/database-diagram/database-diagram-1600-w2000.avif
