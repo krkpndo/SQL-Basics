@@ -576,6 +576,8 @@ VALUES
 
 -- 1. Create a database called Bookstore.
 
+CREATE DATABASE bookstore_db;
+USE bookstore_db;
 
 -- 2. Create a table called Books with the following columns:
 
@@ -591,6 +593,14 @@ VALUES
 
     -- Genre (varchar 50)
 
+CREATE TABLE Books (
+  BookID INT PRIMARY KEY,
+  Title VARCHAR(100) NOT NULL,
+  Author VARCHAR(100),
+  Price INT,
+  PublishedYear INT,
+  Genre VARCHAR(50)
+);
 
 -- 3. Create a table called Customers with the following columns:
 
@@ -604,6 +614,13 @@ VALUES
 
     -- City (varchar 50)
 
+CREATE TABLE Customers (
+  CustomerID INT PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  Email VARCHAR(100),
+  Phone VARCHAR(20),
+  City VARCHAR(50)
+);
 
 -- 4. Insert at least 5 rows into Books and 5 rows into Customers. Make sure to include:
 
@@ -611,72 +628,188 @@ VALUES
 
     -- Books with different genres and years.
 
+INSERT INTO Books 
+VALUES
+(1, 'Twilight', 'Stephenie Meyer', 550.00, 2005, 'Romance'),
+(2, 'Harry Potter and the Sorcerer''s Stone', 'J.K. Rowling', 450.00, 1997, 'Fantasy'),
+(3, '1984', 'George Orwell', 300.00, 1949, 'Dystopian'),
+(4, 'The Great Gatsby', 'F. Scott Fitzgerald', 400.00, 1925, 'Classic'),
+(5, 'To Kill a Mockingbird', 'Harper Lee', 350.00, 1960, 'Fiction');
+
+INSERT INTO Customers 
+VALUES
+(1, 'Kristine Calaluan', 'kristine@gmail.com', '09171234567', 'Manila'),
+(2, 'Anselle Calaluan', NULL, '09181234567', 'Cebu'),
+(3, 'Kim Calaluan', 'kim@yahoo.com', NULL, 'Davao'),
+(4, 'Angel Calaluan', 'angel@gmail.com', '09991234567', 'Batangas'),
+(5, 'Kathrine Calaluan', 'kathrine@gmail.com', '09173456789', 'Manila')
 
 -- 5. Basic Select Queries
 
     -- Select all columns from the Books table.
 
+SELECT * FROM Books;
+
     -- Select only the Title and Price from Books.
+
+SELECT Title, Price FROM Books;
 
     -- Select all distinct genres from the Books table.
 
+SELECT DISTINCT Genre FROM Books;
 
 -- 6. Using WHERE, AND, OR, NOT
 
     -- Select all books where Price is greater than 500.
 
+SELECT * FROM Books WHERE Price > 500;
+
     -- Select all customers who live in "Manila" and have an email.
+
+SELECT * FROM Customers WHERE City = 'Manila' AND Email IS NOT NULL;
 
     -- Select books not published in 2020.
 
+SELECT * FROM Books WHERE NOT PublishedYear = 2020;
+
     -- Select customers whose city is "Cebu" or "Davao".
 
+SELECT * FROM Customers WHERE City = 'Cebu' OR City = 'Davao';
 
 -- 7. ORDER BY and LIMIT
 
     -- Select all books ordered by Price from highest to lowest.
 
+SELECT * FROM Books ORDER BY Price DESC;
+
     -- Select the 3 cheapest books.
+
+SELECT * FROM Books ORDER BY Price ASC LIMIT 3;
 
     -- Select customers ordered alphabetically by Name.
 
+SELECT * FROM Customers ORDER BY Name ASC;
 
 -- 8. Update and Delete
 
     -- Update the price of a book with BookID = 2 to 600.
 
+UPDATE Books 
+SET Price = 600 
+WHERE BookID = 2;
+
     -- Delete a customer whose CustomerID = 5.
 
+DELETE FROM Customers 
+WHERE CustomerID = 5;
 
 -- 9. Aggregate Functions
 
     -- Find the average price of all books.
 
+SELECT AVG(Price) AS AvgPrice FROM Books;
+
     -- Find the maximum and minimum price of books.
+
+SELECT MAX(Price) AS MaxPrice, MIN(Price) AS MinPrice FROM Books;
 
     -- Count the total number of books.
 
+SELECT COUNT(*) AS total_books FROM Books;
+
     -- Count the number of customers with a NULL email.
 
+SELECT COUNT(*) AS null_emails FROM Customers WHERE Email IS NULL;
 
 -- 10. LIKE, Wildcards, IN, BETWEEN
 
     -- Select all books whose title contains "Harry".
 
+SELECT * FROM Books
+WHERE Title LIKE '%Harry%';
+
     -- Select all authors whose name starts with "J".
+
+SELECT * FROM Books
+WHERE Author LIKE 'J%';
 
     -- Select books with Price between 200 and 500.
 
+SELECT * FROM Books
+WHERE Price BETWEEN 200 AND 500;
+
     -- Select customers who live in either "Manila", "Cebu", or "Davao" using IN.
 
+SELECT * FROM Customers
+WHERE City IN ('Manila', 'Cebu', 'Davao');
 
 -- 11. Aliases
 
     -- Select the Title as BookTitle and Price as BookPrice.
 
+SELECT Title AS BookTitle, Price AS BookPrice
+FROM Books;
+
     -- Find the average book price and show it as AvgPrice.
 
+SELECT AVG(Price) AS AvgPrice
+FROM Books;
 
 -- 12. Gawa ka lang tables for this ERD :)
 
     -- https://landing.moqups.com/img/_optimized/templates/diagrams/erd/database-diagram/database-diagram-1600-w2000.avif
+
+CREATE DATABASE itAsset_db;
+USE itAsset_db;
+
+CREATE TABLE Asset_Types (
+    asset_type_code VARCHAR(10) PRIMARY KEY,
+    asset_type_description VARCHAR(100)
+);
+
+CREATE TABLE IT_Assets (
+    asset_id INT AUTO_INCREMENT,
+    asset_type_code VARCHAR(10),
+    description VARCHAR(255),
+    other_details TEXT,
+    PRIMARY KEY (asset_id),
+    FOREIGN KEY (asset_type_code) 
+        REFERENCES Asset_Types(asset_type_code)
+);
+
+CREATE TABLE IT_Asset_Inventory (
+    it_asset_inventory_id INT AUTO_INCREMENT,
+    asset_id INT,
+    inventory_date DATE,
+    number_assigned INT,
+    number_in_stock INT,
+    other_details TEXT,
+    PRIMARY KEY (it_asset_inventory_id),
+    FOREIGN KEY (asset_id) REFERENCES IT_Assets(asset_id)
+);
+
+CREATE TABLE Employees (
+    employee_id INT AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    department VARCHAR(100),
+    extension VARCHAR(10),
+    email_address VARCHAR(100),
+    other_details TEXT,
+    PRIMARY KEY (employee_id)
+);
+
+CREATE TABLE Employee_Assets (
+    asset_id INT,
+    employee_id INT,
+    date_out DATE,
+    date_returned DATE,
+    condition_out VARCHAR(100),
+    condition_returned VARCHAR(100),
+    other_details TEXT,
+    PRIMARY KEY (asset_id, employee_id),
+    FOREIGN KEY (asset_id) REFERENCES IT_Assets(asset_id),
+    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
+);
+
+
