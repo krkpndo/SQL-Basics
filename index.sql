@@ -597,10 +597,13 @@ CREATE TABLE Books (
   BookID INT PRIMARY KEY,
   Title VARCHAR(100) NOT NULL,
   Author VARCHAR(100),
-  Price INT,
+  Price FLOAT, 
   PublishedYear INT,
   Genre VARCHAR(50)
 );
+
+    -- Price data type should be FLOAT (numbers with decimal)
+
 
 -- 3. Create a table called Customers with the following columns:
 
@@ -675,6 +678,7 @@ SELECT * FROM Books WHERE NOT PublishedYear = 2020;
     -- Select customers whose city is "Cebu" or "Davao".
 
 SELECT * FROM Customers WHERE City = 'Cebu' OR City = 'Davao';
+    -- Can be: SELECT * FROM Customers WHERE City IN ('Cebu', 'Davao');
 
 -- 7. ORDER BY and LIMIT
 
@@ -797,19 +801,4 @@ CREATE TABLE Employees (
     email_address VARCHAR(100),
     other_details TEXT,
     PRIMARY KEY (employee_id)
-);
-
-CREATE TABLE Employee_Assets (
-    asset_id INT,
-    employee_id INT,
-    date_out DATE,
-    date_returned DATE,
-    condition_out VARCHAR(100),
-    condition_returned VARCHAR(100),
-    other_details TEXT,
-    PRIMARY KEY (asset_id, employee_id),
-    FOREIGN KEY (asset_id) REFERENCES IT_Assets(asset_id),
-    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
-);
-
-
+);s
